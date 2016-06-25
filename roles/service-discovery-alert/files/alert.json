@@ -1,0 +1,30 @@
+{
+    "ID":"consul-alerts",
+    "name": "consul-alerts-dev",
+    "tags": ["Alert"] ,
+    "checks":[
+        {
+            "id": "memcached",
+            "notes": "memcached",
+            "script": "ping google.com",
+            "interval": "120s"
+        }, {
+            "id": "masterdb",
+            "notes": "masterdb",
+            "script": "ping google.com",
+            "interval": "120s"
+        }, {
+            "id": "slavedb",
+            "notes": "slavedb",
+            "script": "ping google.com",
+            "interval": "120s"
+        }, {
+            "id": "search",
+            "notes": "elasticsearch",
+            "script": "ping google.com",
+            "interval": "120s"
+        }
+
+    ]
+}
+

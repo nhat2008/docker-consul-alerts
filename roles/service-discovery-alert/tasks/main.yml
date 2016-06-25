@@ -1,0 +1,27 @@
+- name: add slack to consul
+  script: add-slack.sh localhost
+
+- name: create workplace for Docker at {{ docker_folder.config }}
+  file: name={{ docker_folder.config }} state=directory
+- name: synchronize folder to {{ docker_folder.config }}
+  copy: src=files/alert.json dest={{ docker_folder.config }}
+
+- name: run consul-alerts container  from acaleph/consul-alerts image
+  docker:
+    detach: true
+    name: "consul-alerts"
+    image: "acaleph/consul-alerts"
+    state: reloaded
+    docker_user: root
+    ports:
+      - "9000:9000"
+    command: start --watch-events --watch-checks --consul-addr="localhost:8500" --log-level=warn
+  tags:
+   - consul_alerts
+
+- name: remove alerting service to consul
+  command: curl localhost:8500/v1/agent/service/deregistor/alerts
+- name: add alerting service to consul
+  command: curl -X PUT -d @alert.json http://localhost:8500/v1/agent/service/register
+  args:
+      chdir: "{{ docker_folder.config }}"

@@ -1,0 +1,4 @@
+---
+- hosts: service-discovery-alert
+  roles:
+    - service-discovery-alert

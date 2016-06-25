@@ -1,0 +1,1 @@
+How to use consul-alert to alert in slack

@@ -1,0 +1,4 @@
+---
+docker_folder:
+            workplace: '/data/consul'
+            config: '/data/consul/config'
